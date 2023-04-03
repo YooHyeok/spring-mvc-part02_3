@@ -36,4 +36,14 @@ public class MessageSourceTest {
         assertThatThrownBy(() -> ms.getMessage("no_code", null, null))
                 .isInstanceOf(NoSuchMessageException.class); //녹색불이 들어오면 예외발생 (메시지를 찾을 수 없어서 오류가 발생했다.)
     }
+
+    /**
+     * 기본 메시지 조회 테스트
+     * 메시지가 존재하지 않을때 3번째 매개변수로 메시지를 넘겨 줄 수있다.
+     */
+    @Test
+    void notFoundMessageCodeDefaultMessage() {
+        String result = ms.getMessage("no_code", null, "기본 메시지", null);
+        assertThat(result).isEqualTo("기본 메시지");
+    }
 }
