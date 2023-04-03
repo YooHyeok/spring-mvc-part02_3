@@ -39,11 +39,22 @@ public class MessageSourceTest {
 
     /**
      * 기본 메시지 조회 테스트
-     * 메시지가 존재하지 않을때 3번째 매개변수로 메시지를 넘겨 줄 수있다.
+     * 메시지가 존재하지 않을때 3번째 매개변수에 지정한 메시지를 반환한다..
      */
     @Test
     void notFoundMessageCodeDefaultMessage() {
         String result = ms.getMessage("no_code", null, "기본 메시지", null);
         assertThat(result).isEqualTo("기본 메시지");
+    }
+
+    /**
+     * 메시지 파라미터 테스트
+     * 파라미터를 받은 ({0}) 메시지는 두번째 매개변수에 파라미터를 담는다.
+     * 해당 매개변수는 Object[] 배열 타입으로 담아야한다.
+     */
+    @Test
+    void argumentMessage() {
+        String result = ms.getMessage("hello.name", new Object[]{"Spring"}, null);
+        assertThat(result).isEqualTo("안녕 Spring");
     }
 }
