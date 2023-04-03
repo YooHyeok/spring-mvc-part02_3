@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 
+import java.util.Locale;
+
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -56,5 +58,15 @@ public class MessageSourceTest {
     void argumentMessage() {
         String result = ms.getMessage("hello.name", new Object[]{"Spring"}, null);
         assertThat(result).isEqualTo("안녕 Spring");
+    }
+
+    /**
+     * Locale.KOREA 테스트
+     * Locale.ENGLISH가 아니면 default messages를 가져오므로 정상작동.
+     */
+    @Test
+    void defaultLang() {
+        assertThat(ms.getMessage("hello", null, null)).isEqualTo("안녕");
+        assertThat(ms.getMessage("hello", null, Locale.KOREA)).isEqualTo("안녕");
     }
 }
